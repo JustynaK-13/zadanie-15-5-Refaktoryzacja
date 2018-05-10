@@ -41,7 +41,8 @@ App = React.createClass({
 5.Układamy obiekt gif na podstawie tego co otrzymaliśmy z serwera
 6.Przekazujemy obiekt do funkcji callback, którą przekazaliśmy jako drugi parametr metody getGif.  
 */
-    getGif: function(searchingText, callback) {  // 1.
+ 
+ /*   getGif: function(searchingText, callback) {  // 1.
         var url = GIPHY_API_URL + '/v1/gifs/random?api_key=' + GIPHY_PUB_KEY + '&tag=' + searchingText;  // 2.
         var xhr = new XMLHttpRequest();  // 3.
         xhr.open('GET', url);
@@ -57,13 +58,14 @@ App = React.createClass({
         };
         xhr.send();
     },
+*/    
 //promise
     getGif: function(searchingText, callback){
         return new Promise(
-            function(resolve){
+            function(resolve) => {
                 const url = GIPHY_API_URL + '/v1/gifs/random?api_key=' + GIPHY_PUB_KEY + '&tag=' + searchingText; 
                 const xhr = new XMLHttpRequest();
-                    xhr.onload = function() {
+                xhr.onload = function() {
                     if (xhr.status === 200) {
                         let data = JSON.parse(xhr.responseText).data;
                         let gif = {  
@@ -78,7 +80,9 @@ App = React.createClass({
         xhr.send();
     },
 
-
+    promise.then(function(resolve));
+    
+//promise end
 
     render: function() {
 
