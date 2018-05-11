@@ -59,7 +59,7 @@ App = React.createClass({
         xhr.send();
     },
 */    
-//promise
+//kod z promise
     getGif: function(searchingText, callback){
         return new Promise(
             function(resolve) => {
@@ -81,7 +81,7 @@ App = React.createClass({
     },
 
     promise.then(function(resolve));
-    
+
 //promise end
 
     render: function() {
