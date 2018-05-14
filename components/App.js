@@ -21,17 +21,18 @@ App = React.createClass({
      -ustaw nowego gifa z wyniku pobierania,
      -ustaw nowy stan dla wyszukiwanego tekstu
 */
-    handleSearch: function(searchingText) {  // 1.
+    handleSearch: function(searchingText) { 
         this.setState({
-          loading: true  // 2.
+          loading: true  
         });
-        this.getGif(searchingText, function(gif) {  // 3.
-          this.setState({  // 4
-            loading: false,  // a
-            gif: gif,  // b
-            searchingText: searchingText  // c
-          });
-        }.bind(this));
+           this.getGif(searchingText)
+            .then(gif => {
+                this.setState({ 
+                    loading: false,  
+                    gif: gif, 
+                    searchingText: searchingText  
+                });
+            })
     },
     /*
 1.Na wejście metody getGif przyjmujemy dwa parametry: wpisywany tekst (searchingText) i funkcję, która ma się wykonać po pobraniu gifa (callback)
@@ -41,28 +42,11 @@ App = React.createClass({
 5.Układamy obiekt gif na podstawie tego co otrzymaliśmy z serwera
 6.Przekazujemy obiekt do funkcji callback, którą przekazaliśmy jako drugi parametr metody getGif.  
 */
- 
- /*   getGif: function(searchingText, callback) {  // 1.
-        var url = GIPHY_API_URL + '/v1/gifs/random?api_key=' + GIPHY_PUB_KEY + '&tag=' + searchingText;  // 2.
-        var xhr = new XMLHttpRequest();  // 3.
-        xhr.open('GET', url);
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-               var data = JSON.parse(xhr.responseText).data; // 4.
-                var gif = {  // 5.
-                    url: data.fixed_width_downsampled_url,
-                    sourceUrl: data.url
-                };
-               callback(gif);  // 6.
-            }
-        };
-        xhr.send();
-    },
-*/    
+   
 //kod z promise
-    getGif: function(searchingText, callback){
+    getGif: function(searchingText){
         return new Promise(
-            function(resolve) => {
+            function(resolve) {
                 const url = GIPHY_API_URL + '/v1/gifs/random?api_key=' + GIPHY_PUB_KEY + '&tag=' + searchingText; 
                 const xhr = new XMLHttpRequest();
                 xhr.onload = function() {
@@ -75,14 +59,10 @@ App = React.createClass({
                     resolve(gif);
                     }
                 }
-            })
-        xhr.open('GET', url);
-        xhr.send();
+                xhr.open('GET', url);
+                xhr.send();
+            }) 
     },
-
-    promise.then(function(resolve));
-
-//promise end
 
     render: function() {
 
